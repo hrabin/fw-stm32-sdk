@@ -58,12 +58,14 @@ int _write (int fd, const void *buf, size_t count)
 #if TTY_BLE
     ble_send(buf, count);
 #endif // ! TTY_BLE
-    while (n--)
+    while (n)
     {
         if (! TTY_UART_PUTCHAR(*ptr++))
             break;
+        n--;
     }
-    return (count-n);
+    // return (count-n);
+    return (count); // always return full write OK (dont harm BLE or USB)
 }
 
 int _read (int fd, const void *buf, size_t count)

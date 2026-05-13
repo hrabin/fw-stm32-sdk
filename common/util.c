@@ -52,7 +52,7 @@ char strnicmp(const char *str1, const char *str2, unsigned char len)
 		b = *(str2++);
 		
 		if ((a=='\0') && (b=='\0'))
-			break; // oba retezce zde konci
+			break; // both strings ends here 
 		
 		if (_charicmp(a, b))
 			continue;
@@ -73,7 +73,7 @@ char stricmp(const char *str1, const char *str2)
 		a = *(str1++);
 		b = *(str2++);
 		if ((a == '\0') && (b == '\0'))
-			return (0);	// oba retezce zde konci
+			return (0);	// both strings ends here 
 
 		if (_charicmp(a, b))
 			continue;
@@ -93,7 +93,7 @@ char stricmp2(const char *str1, const char *str2)
 		a = *(str1++);
 		b = *(str2++);
 		if (b == '\0')
-			return (0);	// druhy retezec zde konci
+			return (0);	// second string ends here 
 
 		if (_charicmp(a, b))
 			continue;

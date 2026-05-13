@@ -322,10 +322,10 @@ bool text_is_valid_phone (const ascii *phone)
 
     len = strnlen(phone, MAX_PHONENUM_LEN+1);
 
-    if ((len == 0) 
-     || (len>MAX_PHONENUM_LEN))
+    if ((len < MIN_PHONENUM_LEN)
+     || (len > MAX_PHONENUM_LEN))
         return (false);
-
+    
     for (i = 0; i < len; i++)
     {
         tmp = *(phone++);

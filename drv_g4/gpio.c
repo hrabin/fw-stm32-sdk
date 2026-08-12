@@ -1,7 +1,6 @@
 #include "platform_setup.h"
 #include "gpio.h"
 #include "hardware.h"
-#include "main.h"
 
 void gpio_init (void)
 {

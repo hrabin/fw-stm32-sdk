@@ -1,8 +1,6 @@
 #include "common.h"
 
 #include "shock.h"
-#include "system.h"
-#include "alarm.h"
 
 #if SHOCK_ENABLE == 1
 

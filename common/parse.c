@@ -60,6 +60,9 @@ char *parse_string(char *dest, const char *s, int size)
     if (*p++ != '"')
         return(NULL);
 
+    // content starts after the opening quote (space-skipped position)
+    s = p;
+
     p = strchr(p, '"');
 
     if (p == NULL)
@@ -67,13 +70,13 @@ char *parse_string(char *dest, const char *s, int size)
 
     if (dest != NULL)
     {
-        int len = p - s - 1;
+        int len = p - s;
 
         if (len >= size)
             return(NULL);
 
-        memset(dest, 0, size);
-        strncpy(dest, s + 1, len);
+        memcpy(dest, s, len);
+        dest[len] = '\0';
     }
 
     return (p + 1);
@@ -91,7 +94,7 @@ char *parse_u64(u64 *dest, const char *s)
     return (p+n);
 }
 #else
-  #warning "print without 64bit support"
+  // #warning "print without 64bit support"
 #endif // defined PRIu64
 
 inline static bool _isdigit(char ch)

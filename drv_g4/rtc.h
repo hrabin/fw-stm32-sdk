@@ -1,16 +1,7 @@
 #ifndef RTC_H
 #define RTC_H
 
-#include "type.h"
-
-typedef struct {
-    u8 second;
-    u8 minute;
-    u8 hour;
-    u8 day;
-    u8 month;
-    u8 year;   // YEAR=year+2000
-} __attribute__((packed)) rtc_t;
+#include "rtc_type.h"
 
 bool rtc_init(void);
 bool rtc_valid(const rtc_t *t);

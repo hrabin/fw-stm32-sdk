@@ -562,15 +562,6 @@ void UART4_IRQHandler(void)
 }
 #endif // UART4_IRQ_USED
 
-void MemManage_Handler(void)
-{	// WTF is this ?
-	// instead of UART4_IRQHandler() it call MemManage_Handler() ? 
-	// How to fix it ? It looks like HW error ....
-	// Interresting is: MemManage_Handler + 64 == UART4_IRQHandler
-	UART4_IRQHandler();
-}
-
-
 void uart4_init(u32 baudrate)
 {
 	// enable GPIO clock

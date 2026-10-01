@@ -64,9 +64,11 @@ MEMORY
 RAM (xrw)     : ORIGIN = 0x20000000, LENGTH = 128K
 FLASH (rx)    : ORIGIN = 0x8000000, LENGTH = 0x7F00
 HW_INFO (rx)  : ORIGIN = 0x8007F00, LENGTH = 0x100
-APP_INFO (rx) : ORIGIN = 0x8008000, LENGTH = 0x100
-APP (rx)      : ORIGIN = 0x8008100, LENGTH = 256K - 0x8000
+APP_INFO (rx) : ORIGIN = 0x8008000, LENGTH = 0x200
+APP (rx)      : ORIGIN = 0x8008200, LENGTH = 256K - 0x8200
 }
+/* Warning: FLASH region must be 512B aligned to VTOR working corectly */
+
 
 /* Define output sections */
 SECTIONS

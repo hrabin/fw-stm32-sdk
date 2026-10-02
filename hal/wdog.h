@@ -18,6 +18,7 @@ u32  wdog_reset_info(void);
 
 wdog_task_id_t wdog_task_register (const ascii *name, uint32_t max_period, uint32_t *stack);
 void wdog_task_feed(wdog_task_id_t id);
+void wdog_task_feed_current(void);
 void wdog_task_suspend(wdog_task_id_t id);
 void wdog_task_resume(wdog_task_id_t id);
 void wdog_stack_info(buf_t *result);

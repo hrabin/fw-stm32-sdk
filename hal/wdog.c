@@ -21,6 +21,7 @@ typedef struct
     const ascii *name;
     int          stack_free;
     bool         suspend;
+    osThreadId_t tid;      // task that registered this guard (for feed_current)
 
 } wdog_task_guard_t;
 
@@ -107,6 +108,7 @@ wdog_task_id_t wdog_task_register (const ascii *name, uint32_t max_period, uint3
         tg->stack  = stack;
         tg->stack_free = _UNKNOWN;
         tg->name = name;
+        tg->tid  = osThreadGetId();
     }
 
     _wdog_unlock();
@@ -134,6 +136,25 @@ void wdog_task_feed(wdog_task_id_t id)
     _wdog.task_guard[id].limit  = os_timer_get() + _wdog.task_guard[id].period;
 
     _wdog_unlock();
+}
+
+void wdog_task_feed_current(void)
+{   // Feed the guard of the calling task, if it is guarded.
+    // For a bounded I/O wait (e.g. an AT-command response) that legitimately
+    // blocks longer than the task's watchdog period: the task is alive and
+    // making progress, so it must not be declared dead. A task stuck anywhere
+    // else still trips its guard.
+    osThreadId_t tid = osThreadGetId();
+    wdog_task_id_t i;
+
+    for (i=0; i<_wdog.tasks_active; i++)
+    {
+        if (_wdog.task_guard[i].tid == tid)
+        {
+            wdog_task_feed(i);
+            return;
+        }
+    }
 }
 
 void wdog_task_suspend(wdog_task_id_t id)
